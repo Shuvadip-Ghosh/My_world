@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/The_ultimate.css') }}">
+  <title>Personal CLoud</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="{{url_for('static', filename='logo.png')}}" alt="" width="40" height="30"
+          class="d-inline-block align-text-top">
+        Personal CLoud
+      </a>
+      <a class="navbar-brand" href="/music">
+        <img src="{{url_for('static', filename='logos.png')}}" 
+        style="width: 2.875rem; height:1.9rem; padding: 0 0.5rem;" alt="" width="40" height="30"
+          class="d-inline-block align-text-top">
+        Music
+      </a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+    </div>
+  </nav>
+
+  <br><br>
+
+  <div class="mb-3 container">
+    <form enctype=multipart/form-data method="post">
+      <h1><label for="formFileMultiple" class="form-label">Upload a File</label></h1>
+      <div class="row">
+        <div class="col-6">
+          <input class="form-control" type="file" id="formFileMultiple" name="file" multiple="true">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary" value="Upload">Upload</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="container">
+    {% if files|length > 0 %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sl. No.</th>
+          <th scope="col">All Your Files</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{file}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="...">
+              <form action="/delete" method="post">
+                <button type="submit" class="btn btn-primary" value="{{file}}" name="Delete">Delete</button>
+              </form>
+              <form action="/download" method="post">
+                <button type="submit" class="btn btn-primary" value="{{file}}" name="Edit">Download</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <span class="d-block p-2 bg-dark text-white my-3">You have No Files added Please Add One</span>
+    {% endif %}
+  </div>
+  <script type="text/javascript" src="static/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spotify - Your favourite music is here</title>
+        <link rel="stylesheet" href="static/style.css">
+        </head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><img src="{{url_for('static', filename='logos.png')}}" alt="Spotify"> Spotify</li>
+            
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="songList">
+            <h1>Best Of your songs. No Copyright songs.</h1>
+            <div class="songItemContainer">
+                {% for file in files %}
+                <div class="songItem">
+                    <span class="songName" >{{file[0]}}</span>
+                    <span class="songlistplay"><span class="timestamp" >{{file[1]}} <img class="songItemimg" src="{{url_for('static', filename='play-circle-regular.png')}}" id={{loop.index}} alt=""></span></span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="songBanner"></div>
+    </div>
+
+    <div class="bottom" id="bot">
+        <div class="progress">
+            <input type="range" name="range" id="myProgressBar" min="0" value="0" max="100">
+        </div>
+        
+        <div class="songInfo">
+            <img src="{{url_for('static', filename='playing.gif')}}" width="42px" alt="" id="gif"> 
+            <span id="masterSongName">{{files[0][0]}}</span>
+        </div>
+        <div class="icons">            
+            <img src="{{url_for('static', filename='step-backward-solid.png')}}" id="previous" alt="previous">
+            <img src="{{url_for('static', filename='play-circle-regular.png')}}" id="masterPlay" alt="play">
+            <img src="{{url_for('static', filename='step-forward-solid.png')}}" id="next" alt="next">
+        </div>
+        <div class="volume">
+            <input type="range" id="volume-control">
+        </div>
+        
+    </div>
+    
+    <script>
+        let songs_data = {{song_name|safe}};
+    </script>
+    <script type="text/javascript" src="static/script.js"></script>
+    <script src="https://kit.fontawesome.com/26504e4a1f.js" crossorigin="anonymous"></script>
+</body>
+</html>
