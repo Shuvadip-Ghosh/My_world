@@ -79,12 +79,14 @@ myProgressBar.addEventListener('change', ()=>{
     audioElement.currentTime = myProgressBar.value * audioElement.duration/100;
 })
 
-// const makeAllPlays = ()=>{
-//     Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
-//         element.classList.remove('fa-pause-circle');
-//         element.classList.add('fa-play-circle');
-//     })
-// }
+const makeAllPlays = ()=>{
+    Array.from(document.getElementsByClassName('songItemPlay')).forEach((element)=>{
+        // element.classList.remove('fa-pause-circle');
+        // element.classList.add('fa-play-circle');
+        let el = document.getElementById(songIndex)
+        el.src="../static/play-circle-regular.png"
+    })
+}
 
 Array.from(document.getElementsByClassName('songItemimg')).forEach((element)=>{
     // console.log(element.id);
