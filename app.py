@@ -76,6 +76,7 @@ def download():
 @app.route('/music')
 def spotify():
     songs = os.listdir("static/songs")
+    time_data = []
     songs_name = []
     for song in songs:
         file= "static/songs/"+song
@@ -83,8 +84,9 @@ def spotify():
         timee = song_info.info.length
         total_time = time.strftime('%M:%S', time.gmtime(timee))
         song = song.replace(".mp3","")
+        time_data.append(total_time)
         songs_name.append([song,total_time])
-    return render_template("spotify.html",files = songs_name,song_name = songs)
+    return render_template("spotify.html",files = songs_name,song_name = songs,time_data=time_data)
 
 if __name__ =="__main__":
     app.run(debug = True,host="0.0.0.0",port=5000)
