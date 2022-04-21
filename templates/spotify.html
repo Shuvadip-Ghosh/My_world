@@ -11,7 +11,7 @@
     <nav>
         <ul>
             <li class="brand"><img src="{{url_for('static', filename='logos.png')}}" alt="Spotify"> Spotify</li>
-            
+            <li class="brand search"><input type="text" class="form-control" placeholder="Name of song" id="search"></li>
         </ul>
     </nav>
 
@@ -20,7 +20,7 @@
             <h1>Best Of your songs. No Copyright songs.</h1>
             <div class="songItemContainer">
                 {% for file in files %}
-                <div class="songItem">
+                <div class="songItem" id="songItem{{loop.index}}">
                     <span class="songName" >{{file[0]}}</span>
                     <span class="songlistplay"><span class="timestamp" >{{file[1]}} <img class="songItemimg" src="{{url_for('static', filename='play-circle-regular.png')}}" id={{loop.index}} alt=""></span></span>
                 </div>
@@ -46,6 +46,7 @@
             <img src="{{url_for('static', filename='step-forward-solid.png')}}" id="next" alt="next">
         </div>
         <div class="volume">
+            <img src="{{url_for('static', filename='repeat.png')}}" class="repeat" id="repeat" alt="repeat">
             <input type="range" id="volume-control">
         </div>
         

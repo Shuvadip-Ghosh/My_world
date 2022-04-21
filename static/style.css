@@ -8,21 +8,34 @@ body {
 }
 nav {
   font-family: sans-serif;
-  position:sticky; 
-  position:-webkit-sticky; 
-  top:0px;
-  z-index:150;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  z-index: 150;
 }
 nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
-  height: 2.8125rem;
+  height: 3.6rem;
+  /* height: 2.8125rem; */
   background-color: black;
   color: white;
 }
 nav ul li {
   padding: 0 0.75rem;
+}
+.search {
+  width: 100%;
+  text-align: right;
+  justify-content: right;
+}
+#search {
+  padding-left: 1rem;
+  width: 16rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
 }
 .brand img {
   width: 1.875rem;
@@ -58,18 +71,15 @@ nav ul li {
   flex-direction: column;
 }
 .icons {
-  /* margin-top: 0.875rem; */
   width: 100%;
   text-align: center;
   justify-content: center;
 }
-
-.icons img{
-  height: 2rem;
+.icons img {
+  height: 1.8rem;
   filter: invert(100%);
   cursor: pointer;
 }
-
 #myProgressBar {
   width: 80vw;
   cursor: pointer;
@@ -93,12 +103,10 @@ nav ul li {
 }
 .songItemimg {
   height: 1rem;
+  cursor: pointer;
 }
 .timestamp {
   margin: 0 1.4375rem;
-}
-.timestamp img {
-  cursor: pointer;
 }
 .songInfo {
   position: absolute;
@@ -109,33 +117,36 @@ nav ul li {
   opacity: 0;
   transition: opacity 0.4s ease-in;
 }
-.volume{
+.volume {
   width: 100%;
   text-align: right;
   justify-content: right;
   background-color: black;
 }
-
-#Upload{
+.volume img {
+  height: 1.6rem;
+  filter: invert(100%) brightness(100%);
+}
+#Upload {
   cursor: pointer;
 }
 
 @media only screen and (max-width: 940px) {
   body {
-    background-color: #4C566A;
+    background-color: #4c566a;
   }
   html {
     font-size: 80%;
   }
-  #masterPlay{
+  #masterPlay {
     margin-bottom: 0.5rem;
   }
-  .icons{
+  .icons {
     justify-content: right;
     text-align: right;
     width: 90%;
   }
-  .songInfo{
+  .songInfo {
     width: 90%;
     left: 2vw;
     padding-top: 1rem;
@@ -153,23 +164,29 @@ nav ul li {
     background-image: url("../static/bg.jpg");
     background-size: 1100px;
   }
-  .songlistplay{
+  .songlistplay {
     width: 50%;
     text-align: right;
     margin-right: 1rem;
   }
-  .songName{
+  .bottom {
+    height: 6.5rem;
+  }
+  .songName {
     font-size: 1rem;
   }
-  #previous{
+  #previous {
     margin-bottom: 0.5rem;
     /* display: none; */
   }
-  #next{
+  #next {
     margin-bottom: 0.5rem;
     /* display: none; */
   }
-  #volume-control{
+  .songInfo img {
     display: none;
-  } 
+  }
+  #volume-control {
+    display: none;
+  }
 }

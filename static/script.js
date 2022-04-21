@@ -1,6 +1,7 @@
 let i = 1;
 let songIndex = 1;
 let previousSong = 0;
+let repeat = 0
 let songState = "paused";
 let folder = "static/songs/";  
 let first_song = folder.concat("",songs_data[0]);
@@ -17,7 +18,10 @@ let myProgressBar = document.getElementById('myProgressBar');
 let gif = document.getElementById('gif');
 let masterSongName = document.getElementById('masterSongName');
 let masterSongTime = document.getElementById('masterSongTime');
-
+let search = document.querySelector('#search')
+let rep = document.getElementById('repeat')
+let vol = document.getElementById('volume-control');
+audioElement.volume = vol.value/100;
 
 
 masterPlay.addEventListener('click', ()=>{
@@ -37,18 +41,33 @@ masterPlay.addEventListener('click', ()=>{
     }
 })
 
+rep.addEventListener('click',()=>{
+    if (repeat ==0){
+        rep.src="../static/repeat1.png";
+        repeat =1;
+    }
+    else if(repeat ==1){
+        rep.src="../static/repeat.png";
+        repeat = 0;
+    }
+})
+
 // Listen to Events
 audioElement.addEventListener('timeupdate', ()=>{ 
-    // Update Seekbar
     progress = parseInt((audioElement.currentTime/audioElement.duration)* 100); 
     myProgressBar.value = progress;
     if (audioElement.currentTime==audioElement.duration){
+        if (repeat==0){
+            songIndex = songIndex+1;
+            if (songIndex>songs.length){
+                songIndex = 1;
+            }
+        }
+        else if (repeat == 1){
+            songIndex = songIndex;
+        }
         let el = document.getElementById(songIndex)
         el.src="../static/play-circle-regular.png"
-        songIndex = songIndex+1;
-        if (songIndex>songs.length){
-            songIndex = 1;
-        }
         let ele = document.getElementById(songIndex)
         ele.src="../static/pause-circle-regular.png"
         songState = "playin ${songIndex}";
@@ -178,8 +197,29 @@ document.getElementById('previous').addEventListener('click', ()=>{
     document.getElementById("masterPlay").src="../static/pause-circle-regular.png";
 })
 
+function setcss() {
+    let songit = document.getElementsByClassName("songItem");
+    let songN = document.getElementsByClassName("songName");
+    let times = document.getElementsByClassName("timestamp");
+    let tiimg = document.getElementsByClassName("songItemimg");
+}
 
-let volume = document.querySelector("#volume-control");
-volume.addEventListener("change", function(e) {
-audioElement.volume = e.currentTarget.value / 100;
+search.addEventListener('input',()=>{
+    const valu = search.value;
+    var value = valu.toLowerCase();
+    songs.forEach((element)=>{
+        let name = element["songName"].toLowerCase();
+        let c = document.getElementById('songItem'+element["songid"]);
+        if(name.includes(value)){
+            c.style.display='';
+        }
+        else{
+            c.style.display='none';
+        }
+    })
+        
+})
+
+vol.addEventListener("change", ()=> {
+audioElement.volume = vol.value / 100;
 })
