@@ -36,6 +36,7 @@ nav ul li {
   height: 2rem;
   border-radius: 0.5rem;
   font-size: 1.5rem;
+  caret-color: transparent;
 }
 .brand img {
   width: 1.875rem;
@@ -57,7 +58,7 @@ nav ul li {
   width: 80%;
   border-radius: 0.75rem;
   padding: 2.125rem;
-  background-image: url("../static/bg.jpg");
+  background-image: url("../static/Images/bg.jpg");
 }
 .bottom {
   position: sticky;
@@ -102,7 +103,7 @@ nav ul li {
   margin-left: 1.25rem;
 }
 .songItemimg {
-  height: 1rem;
+  height: 1.2rem;
   cursor: pointer;
 }
 .timestamp {
@@ -127,10 +128,8 @@ nav ul li {
   height: 1.6rem;
   filter: invert(100%) brightness(100%);
 }
-#Upload {
-  cursor: pointer;
-}
 
+/* 940 */
 @media only screen and (max-width: 940px) {
   body {
     background-color: #4c566a;
@@ -138,18 +137,17 @@ nav ul li {
   html {
     font-size: 80%;
   }
-  #masterPlay {
-    margin-bottom: 0.5rem;
-  }
   .icons {
     justify-content: right;
     text-align: right;
     width: 90%;
   }
+  .icons img{
+    margin-top: 1.3rem;
+  }
   .songInfo {
     width: 90%;
     left: 2vw;
-    padding-top: 1rem;
   }
   .container {
     min-height: 72vh;
@@ -161,7 +159,7 @@ nav ul li {
     width: 80%;
     border-radius: 0.75rem;
     padding: 2.125rem;
-    background-image: url("../static/bg.jpg");
+    background-image: url("../static/Images/bg.jpg");
     background-size: 1100px;
   }
   .songlistplay {
@@ -174,14 +172,6 @@ nav ul li {
   }
   .songName {
     font-size: 1rem;
-  }
-  #previous {
-    margin-bottom: 0.5rem;
-    /* display: none; */
-  }
-  #next {
-    margin-bottom: 0.5rem;
-    /* display: none; */
   }
   .songInfo img {
     display: none;

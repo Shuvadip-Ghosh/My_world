@@ -1,7 +1,10 @@
+let text = document.getElementById('spotify').innerText;
+document.getElementById('spotify').innerText = text + "v";
 let i = 1;
 let songIndex = 1;
 let previousSong = 0;
-let repeat = 0
+let repeat = 0;
+let shuff = 0;
 let songState = "paused";
 let folder = "static/songs/";  
 let first_song = folder.concat("",songs_data[0]);
@@ -12,6 +15,7 @@ function myFunction(value, index) {
     let filepath = folder.concat("",value);
     songs.push({songName: value, filePath: filepath, songid:index+1});
 }
+
 let audioElement = new Audio(first_song);
 let masterPlay = document.getElementById('masterPlay');
 let myProgressBar = document.getElementById('myProgressBar');
@@ -20,9 +24,9 @@ let masterSongName = document.getElementById('masterSongName');
 let masterSongTime = document.getElementById('masterSongTime');
 let search = document.querySelector('#search')
 let rep = document.getElementById('repeat')
+let shuffle = document.getElementById('shuffle')
 let vol = document.getElementById('volume-control');
 audioElement.volume = vol.value/100;
-
 
 masterPlay.addEventListener('click', ()=>{
     if(audioElement.paused || audioElement.currentTime<=0){
@@ -45,6 +49,8 @@ rep.addEventListener('click',()=>{
     if (repeat ==0){
         rep.src="../static/repeat1.png";
         repeat =1;
+        shuffle.src="../static/shuffle-solid.png";
+        shuff = 0;
     }
     else if(repeat ==1){
         rep.src="../static/repeat.png";
@@ -52,16 +58,34 @@ rep.addEventListener('click',()=>{
     }
 })
 
-// Listen to Events
+shuffle.addEventListener('click',()=>{
+    if (shuff ==0){
+        shuffle.src="../static/shuffle-solid1.png";
+        shuff =1;
+        rep.src="../static/repeat.png";
+        repeat = 0;
+    }
+    else if(shuff ==1){
+        shuffle.src="../static/shuffle-solid.png";
+        shuff = 0;
+    }
+})
+
 audioElement.addEventListener('timeupdate', ()=>{ 
     progress = parseInt((audioElement.currentTime/audioElement.duration)* 100); 
     myProgressBar.value = progress;
     if (audioElement.currentTime==audioElement.duration){
         if (repeat==0){
-            songIndex = songIndex+1;
-            if (songIndex>songs.length){
-                songIndex = 1;
+            if(shuff==0){
+               songIndex = songIndex+1;
+                if (songIndex>songs.length){
+                    songIndex = 1;
+                } 
             }
+            else if(shuff==1){
+                songIndex = Math.floor((Math.random() * songs.length) + 1);
+            }
+            
         }
         else if (repeat == 1){
             songIndex = songIndex;
@@ -142,30 +166,6 @@ Array.from(document.getElementsByClassName('songItemimg')).forEach((element)=>{
     })
 })
 
-function getname(value,index,array){
-    if(index+1 ==songIndex){
-        let val = JSON.parse(JSON.stringify(value));
-        let length = val["songName"].length;
-        let song_name = val["songName"].slice(0,length-4);
-        if(audioElement.paused || audioElement.currentTime<=0){
-            audioElement.src= val["filePath"];
-            masterSongName.innerText =song_name;
-            masterSongTime.innerText="00:00/"+time_data[index];
-            audioElement.currentTime = 0;
-            audioElement.play();
-        }
-        else
-        {
-            audioElement.pause()
-            audioElement.src= val["filePath"];
-            masterSongName.innerText = song_name;
-            masterSongTime.innerText="00:00/"+time_data[index];
-            audioElement.currentTime = 0;
-            audioElement.play();
-        }
-    }
-}
-
 document.getElementById('next').addEventListener('click', ()=>{
     let el = document.getElementById(songIndex)
     el.src="../static/play-circle-regular.png"
@@ -197,13 +197,6 @@ document.getElementById('previous').addEventListener('click', ()=>{
     document.getElementById("masterPlay").src="../static/pause-circle-regular.png";
 })
 
-function setcss() {
-    let songit = document.getElementsByClassName("songItem");
-    let songN = document.getElementsByClassName("songName");
-    let times = document.getElementsByClassName("timestamp");
-    let tiimg = document.getElementsByClassName("songItemimg");
-}
-
 search.addEventListener('input',()=>{
     const valu = search.value;
     var value = valu.toLowerCase();
@@ -223,3 +216,27 @@ search.addEventListener('input',()=>{
 vol.addEventListener("change", ()=> {
 audioElement.volume = vol.value / 100;
 })
+
+function getname(value,index,array){
+    if(index+1 ==songIndex){
+        let val = JSON.parse(JSON.stringify(value));
+        let length = val["songName"].length;
+        let song_name = val["songName"].slice(0,length-4);
+        if(audioElement.paused || audioElement.currentTime<=0){
+            audioElement.src= val["filePath"];
+            masterSongName.innerText =song_name;
+            masterSongTime.innerText="00:00/"+time_data[index];
+            audioElement.currentTime = 0;
+            audioElement.play();
+        }
+        else
+        {
+            audioElement.pause()
+            audioElement.src= val["filePath"];
+            masterSongName.innerText = song_name;
+            masterSongTime.innerText="00:00/"+time_data[index];
+            audioElement.currentTime = 0;
+            audioElement.play();
+        }
+    }
+}
