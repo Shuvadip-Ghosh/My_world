@@ -12,7 +12,8 @@
 <body>
     <nav>
         <ul>
-            <li class="brand" id="spotify"><img src="{{url_for('static', filename='Images/logos.png')}}" alt="Spotify"> Spotify
+            <li class="brand" id="spotify"><img src="{{url_for('static', filename='Images/logos.png')}}" alt="Spotify">
+                Spotify
             </li>
             <li class="brand search"><input type="text" class="form-control" placeholder="Name of song" id="search">
             </li>
@@ -53,6 +54,7 @@
             <img src="{{url_for('static', filename='Images/repeat.png')}}" class="repeat" id="repeat" alt="repeat">
         </div>
         <div class="volume">
+            <img src="{{url_for('static', filename='Images/volume-mid-solid.png')}}" id="volume-pic" alt="volume-picture">
             <input type="range" id="volume-control">
         </div>
 
@@ -77,61 +79,69 @@
         songs.push({ songName: value, filePath: filepath, songid: index + 1 });
     }
     let audioElement = new Audio(first_song);
-    let masterPlay = document.getElementById('masterPlay');
-    let myProgressBar = document.getElementById('myProgressBar');
-    let gif = document.getElementById('gif');
-    let masterSongName = document.getElementById('masterSongName');
-    let masterSongTime = document.getElementById('masterSongTime');
-    let search = document.querySelector('#search')
-    let rep = document.getElementById('repeat')
-    let shuffle = document.getElementById('shuffle')
-    let vol = document.getElementById('volume-control');
+    let masterPlay = document.getElementById("masterPlay");
+    let myProgressBar = document.getElementById("myProgressBar");
+    let gif = document.getElementById("gif");
+    let masterSongName = document.getElementById("masterSongName");
+    let masterSongTime = document.getElementById("masterSongTime");
+    let search = document.querySelector("#search");
+    let rep = document.getElementById("repeat");
+    let shuffle = document.getElementById("shuffle");
+    let vol_pic = document.getElementById("volume-pic");
+    let vol = document.getElementById("volume-control");
     audioElement.volume = vol.value / 100;
 
-    masterPlay.addEventListener('click', () => {
-        if (audioElement.paused || audioElement.currentTime <= 0) {
-            audioElement.play();
-            document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
-            let el = document.getElementById(songIndex)
-            el.src = "../static/Images/pause-circle-regular.png"
-            gif.style.opacity = 1;
-        }
-        else {
-            audioElement.pause();
-            document.getElementById("masterPlay").src = "../static/Images/play-circle-regular.png";
-            gif.style.opacity = 0;
-            let el = document.getElementById(songIndex)
+    function makeAllplay() {
+        for (let i = 1; i <= songs.length; i++) {
+            let el = document.getElementById(i);
             el.src = "../static/Images/play-circle-regular.png"
         }
-    })
+    }
+    makeAllplay();
 
-    rep.addEventListener('click', () => {
+    masterPlay.addEventListener("click", () => {
+        if (audioElement.paused || audioElement.currentTime <= 0) {
+            audioElement.play();
+            document.getElementById("masterPlay").src =
+                "../static/Images/pause-circle-regular.png";
+            let el = document.getElementById(songIndex);
+            el.src = "../static/Images/pause-circle-regular.png";
+            gif.style.opacity = 1;
+        } else {
+            audioElement.pause();
+            document.getElementById("masterPlay").src =
+                "../static/Images/play-circle-regular.png";
+            gif.style.opacity = 0;
+            let el = document.getElementById(songIndex);
+            el.src = "../static/Images/play-circle-regular.png";
+        }
+    });
+
+    rep.addEventListener("click", () => {
         if (repeat == 0) {
             rep.src = "../static/Images/repeat1.png";
             repeat = 1;
             shuffle.src = "../static/Images/shuffle-solid.png";
             shuff = 0;
-        }
-        else if (repeat == 1) {
+        } else if (repeat == 1) {
             rep.src = "../static/Images/repeat.png";
             repeat = 0;
         }
-    })
+    });
 
-    shuffle.addEventListener('click', () => {
+    shuffle.addEventListener("click", () => {
         if (shuff == 0) {
             shuffle.src = "../static/Images/shuffle-solid1.png";
             shuff = 1;
             rep.src = "../static/Images/repeat.png";
             repeat = 0;
-        }
-        else if (shuff == 1) {
+        } else if (shuff == 1) {
             shuffle.src = "../static/Images/shuffle-solid.png";
             shuff = 0;
         }
-    })
+    });
 
-    audioElement.addEventListener('timeupdate', () => {
+    audioElement.addEventListener("timeupdate", () => {
         progress = parseInt((audioElement.currentTime / audioElement.duration) * 100);
         myProgressBar.value = progress;
         if (audioElement.currentTime == audioElement.duration) {
@@ -141,141 +151,145 @@
                     if (songIndex > songs.length) {
                         songIndex = 1;
                     }
+                } else if (shuff == 1) {
+                    songIndex = Math.floor(Math.random() * songs.length + 1);
                 }
-                else if (shuff == 1) {
-                    songIndex = Math.floor((Math.random() * songs.length) + 1);
-                }
-
-            }
-            else if (repeat == 1) {
+            } else if (repeat == 1) {
                 songIndex = songIndex;
             }
-            let el = document.getElementById(songIndex)
-            el.src = "../static/Images/play-circle-regular.png"
-            let ele = document.getElementById(songIndex)
-            ele.src = "../static/Images/pause-circle-regular.png"
+            let el = document.getElementById(songIndex);
+            el.src = "../static/Images/play-circle-regular.png";
+            let ele = document.getElementById(songIndex);
+            ele.src = "../static/Images/pause-circle-regular.png";
             songState = "playin ${songIndex}";
             audioElement.pause();
             songs.forEach(getname);
-            document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
+            document.getElementById("masterPlay").src =
+                "../static/Images/pause-circle-regular.png";
         }
-    })
+    });
 
-    myProgressBar.addEventListener('change', () => {
-        audioElement.currentTime = myProgressBar.value * audioElement.duration / 100;
-    })
+    myProgressBar.addEventListener("change", () => {
+        audioElement.currentTime =
+            (myProgressBar.value * audioElement.duration) / 100;
+    });
 
-    audioElement.addEventListener('timeupdate', () => {
-        let ti = parseInt(audioElement.currentTime)
+    audioElement.addEventListener("timeupdate", () => {
+        let ti = parseInt(audioElement.currentTime);
         if (ti < 10) {
             masterSongTime.innerText = "00:0" + ti + "/" + time_data[songIndex - 1];
-        }
-        else if (ti >= 10 && ti < 60) {
+        } else if (ti >= 10 && ti < 60) {
             masterSongTime.innerText = "00:" + ti + "/" + time_data[songIndex - 1];
-        }
-        else if (ti >= 60) {
+        } else if (ti >= 60) {
             let t = parseInt(ti / 60);
             ti = parseInt(ti % 60);
             if (ti < 10 && t < 10) {
-                masterSongTime.innerText = "0" + t + ":0" + ti + "/" + time_data[songIndex - 1];
+                masterSongTime.innerText =
+                    "0" + t + ":0" + ti + "/" + time_data[songIndex - 1];
+            } else if (ti >= 10 && t < 10) {
+                masterSongTime.innerText =
+                    "0" + t + ":" + ti + "/" + time_data[songIndex - 1];
             }
-            else if (ti >= 10 && t < 10) {
-                masterSongTime.innerText = "0" + t + ":" + ti + "/" + time_data[songIndex - 1];
-            }
-        }
-        else {
+        } else {
             masterSongTime.innerText = "00:0/" + time_data[songIndex - 1];
         }
+    });
 
-    })
-
-    Array.from(document.getElementsByClassName('songItemimg')).forEach((element) => {
-        element.addEventListener('click', (e) => {
-            previousSong = songIndex;
-            let el = document.getElementById(previousSong)
-            el.src = "../static/Images/play-circle-regular.png"
-            songIndex = parseInt(e.target.id);
-            if (previousSong == songIndex) {
-                if (songState == "paused") {
-                    let el = document.getElementById(songIndex)
-                    el.src = "../static/Images/pause-circle-regular.png"
-                    audioElement.play();
+    Array.from(document.getElementsByClassName("songItemimg")).forEach(
+        (element) => {
+            element.addEventListener("click", (e) => {
+                previousSong = songIndex;
+                let el = document.getElementById(previousSong);
+                el.src = "../static/Images/play-circle-regular.png";
+                songIndex = parseInt(e.target.id);
+                if (previousSong == songIndex) {
+                    if (songState == "paused") {
+                        let el = document.getElementById(songIndex);
+                        el.src = "../static/Images/pause-circle-regular.png";
+                        audioElement.play();
+                        songState = "playin";
+                        document.getElementById("masterPlay").src =
+                            "../static/Images/pause-circle-regular.png";
+                        gif.style.opacity = 1;
+                    } else {
+                        let el = document.getElementById(songIndex);
+                        el.src = "../static/Images/play-circle-regular.png";
+                        audioElement.pause();
+                        songState = "paused";
+                        document.getElementById("masterPlay").src =
+                            "../static/Images/play-circle-regular.png";
+                        gif.style.opacity = 0;
+                    }
+                } else {
+                    let el = document.getElementById(songIndex);
+                    el.src = "../static/Images/pause-circle-regular.png";
+                    songs.forEach(getname);
                     songState = "playin";
-                    document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
+                    document.getElementById("masterPlay").src =
+                        "../static/Images/pause-circle-regular.png";
                     gif.style.opacity = 1;
                 }
-                else {
-                    let el = document.getElementById(songIndex)
-                    el.src = "../static/Images/play-circle-regular.png"
-                    audioElement.pause()
-                    songState = "paused";
-                    document.getElementById("masterPlay").src = "../static/Images/play-circle-regular.png";
-                    gif.style.opacity = 0;
-                }
-            }
-            else {
-                let el = document.getElementById(songIndex)
-                el.src = "../static/Images/pause-circle-regular.png"
-                songs.forEach(getname);
-                songState = "playin";
-                document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
-                gif.style.opacity = 1;
-            }
+            });
+        }
+    );
 
-
-        })
-    })
-
-    document.getElementById('next').addEventListener('click', () => {
-        let el = document.getElementById(songIndex)
-        el.src = "../static/Images/play-circle-regular.png"
+    document.getElementById("next").addEventListener("click", () => {
+        let el = document.getElementById(songIndex);
+        el.src = "../static/Images/play-circle-regular.png";
         songIndex = songIndex + 1;
         if (songIndex > songs.length) {
             songIndex = 1;
         }
-        let ele = document.getElementById(songIndex)
-        ele.src = "../static/Images/pause-circle-regular.png"
+        let ele = document.getElementById(songIndex);
+        ele.src = "../static/Images/pause-circle-regular.png";
         songState = "playin ${songIndex}";
         audioElement.pause();
         songs.forEach(getname);
-        document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
+        document.getElementById("masterPlay").src =
+            "../static/Images/pause-circle-regular.png";
+    });
 
-    })
-
-    document.getElementById('previous').addEventListener('click', () => {
-        let el = document.getElementById(songIndex)
-        el.src = "../static/Images/play-circle-regular.png"
+    document.getElementById("previous").addEventListener("click", () => {
+        let el = document.getElementById(songIndex);
+        el.src = "../static/Images/play-circle-regular.png";
         songIndex = songIndex - 1;
         if (songIndex == 0) {
             songIndex = songs.length;
         }
-        let ele = document.getElementById(songIndex)
-        ele.src = "../static/Images/pause-circle-regular.png"
+        let ele = document.getElementById(songIndex);
+        ele.src = "../static/Images/pause-circle-regular.png";
         songState = "playin ${songIndex}";
         audioElement.pause();
         songs.forEach(getname);
-        document.getElementById("masterPlay").src = "../static/Images/pause-circle-regular.png";
-    })
+        document.getElementById("masterPlay").src =
+            "../static/Images/pause-circle-regular.png";
+    });
 
-    search.addEventListener('input', () => {
+    search.addEventListener("input", () => {
         const valu = search.value;
         var value = valu.toLowerCase();
         songs.forEach((element) => {
             let name = element["songName"].toLowerCase();
-            let c = document.getElementById('songItem' + element["songid"]);
+            let c = document.getElementById("songItem" + element["songid"]);
             if (name.includes(value)) {
-                c.style.display = '';
+                c.style.display = "";
+            } else {
+                c.style.display = "none";
             }
-            else {
-                c.style.display = 'none';
-            }
-        })
-
-    })
+        });
+    });
 
     vol.addEventListener("change", () => {
         audioElement.volume = vol.value / 100;
-    })
+        if (vol.value < 33) {
+            vol_pic.src = "../static/Images/volume-low-solid.png";
+            document.getElementById("volume-pic").style.paddingRight = "0.5rem";
+        } else if (vol.value > 33 && vol.value < 66) {
+            vol_pic.src = "../static/Images/volume-mid-solid.png";
+        } else if (vol.value > 66) {
+            vol_pic.src = "../static/Images/volume-high-solid.png";
+        }
+    });
 
     function getname(value, index, array) {
         if (index + 1 == songIndex) {
@@ -288,9 +302,8 @@
                 masterSongTime.innerText = "00:00/" + time_data[index];
                 audioElement.currentTime = 0;
                 audioElement.play();
-            }
-            else {
-                audioElement.pause()
+            } else {
+                audioElement.pause();
                 audioElement.src = val["filePath"];
                 masterSongName.innerText = song_name;
                 masterSongTime.innerText = "00:00/" + time_data[index];
