@@ -54,8 +54,9 @@
             <img src="{{url_for('static', filename='Images/repeat.png')}}" class="repeat" id="repeat" alt="repeat">
         </div>
         <div class="volume">
-            <img src="{{url_for('static', filename='Images/volume-mid-solid.png')}}" id="volume-pic" alt="volume-picture">
-            <input type="range" id="volume-control">
+            <img src="{{url_for('static', filename='Images/volume-mid-solid.png')}}" id="volume-pic"
+                alt="volume-picture">
+            <input type="range" id="volume-control" class="volume-control">
         </div>
 
     </div>
@@ -281,12 +282,13 @@
 
     vol.addEventListener("change", () => {
         audioElement.volume = vol.value / 100;
-        if (vol.value < 33) {
+        if (vol.value == 0) {
+            vol_pic.src = "../static/Images/volume-0-solid.png";
+        } else if (vol.value >= 1 & vol.value < 33) {
             vol_pic.src = "../static/Images/volume-low-solid.png";
-            document.getElementById("volume-pic").style.paddingRight = "0.5rem";
         } else if (vol.value > 33 && vol.value < 66) {
             vol_pic.src = "../static/Images/volume-mid-solid.png";
-        } else if (vol.value > 66) {
+        } else if (vol.value > 66 && vol.value <= 100) {
             vol_pic.src = "../static/Images/volume-high-solid.png";
         }
     });

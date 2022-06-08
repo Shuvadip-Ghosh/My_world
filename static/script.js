@@ -216,12 +216,13 @@ search.addEventListener("input", () => {
 
 vol.addEventListener("change", () => {
   audioElement.volume = vol.value / 100;
-  if (vol.value < 33) {
+  if(vol.value == 0){
+    vol_pic.src = "../static/Images/volume-0-solid.png";
+  } else if (vol.value >=1 &vol.value < 33) {
     vol_pic.src = "../static/Images/volume-low-solid.png";
-    document.getElementById("volume-pic").style.paddingRight = "0.5rem";
   } else if (vol.value > 33 && vol.value < 66) {
     vol_pic.src = "../static/Images/volume-mid-solid.png";
-  } else if (vol.value > 66) {
+  } else if (vol.value > 66 && vol.value<=100) {
     vol_pic.src = "../static/Images/volume-high-solid.png";
   }
 });

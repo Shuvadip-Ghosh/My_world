@@ -7,6 +7,7 @@ from mutagen import mp3
 from mutagen.mp3 import MP3
 import time
 
+
 ALLOWED_EXTENSIONS = {
     # music
     'aif', 'cda', 'mid', 'midi', 'mp3', 'mpa', 'ogg', 'wav', 'wma', 'wpl', 'm3u',
@@ -90,7 +91,6 @@ def spotify():
         time_data.append(total_time)
         songs_name.append([song, total_time])
     return render_template("spotify.html", files=songs_name, song_name=songs, time_data=time_data)
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
