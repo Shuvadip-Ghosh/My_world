@@ -27,8 +27,8 @@
                 {% for file in files %}
                 <div class="songItem" id="songItem{{loop.index}}">
                     <span class="songName">{{file[0]}}</span>
-                    <span class="songlistplay"><span class="timestamp">{{file[1]}} <img class="songItemimg"
-                                src="../static/Images/play-circle-regular.png" id={{loop.index}} alt=""></span></span>
+                    <div class="songlistplay"><span class="timestamp">{{file[1]}}</span> <img class="songItemimg"
+                                src="../static/Images/play-circle-regular.png" id={{loop.index}} alt=""></div>
                 </div>
                 {% endfor %}
             </div>

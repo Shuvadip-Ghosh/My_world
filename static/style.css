@@ -106,8 +106,10 @@ nav ul li {
   height: 1.2rem;
   cursor: pointer;
 }
-.timestamp {
+.songlistplay {
   margin: 0 1.4375rem;
+  display: flex;
+  flex-direction: row;
 }
 .songInfo {
   position: absolute;
