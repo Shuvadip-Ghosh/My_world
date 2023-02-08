@@ -6,7 +6,7 @@ from datetime import timedelta
 from mutagen import mp3
 from mutagen.mp3 import MP3
 import time
-
+import subprocess
 
 ALLOWED_EXTENSIONS = {
     # music
@@ -93,4 +93,4 @@ def spotify():
     return render_template("spotify.html", files=songs_name, song_name=songs, time_data=time_data)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=8000)
