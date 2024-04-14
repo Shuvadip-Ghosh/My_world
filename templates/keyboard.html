@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard</title>
+    <style>
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(14, 1fr);
+            gap: 5px;
+            padding: 20px;
+        }
+        .key {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard">
+        <div class="key" onclick="sendKey('Escape')">Esc</div>
+        <div class="key" onclick="sendKey('F1')">F1</div>
+        <div class="key" onclick="sendKey('F2')">F2</div>
+        <div class="key" onclick="sendKey('F3')">F3</div>
+        <div class="key" onclick="sendKey('F4')">F4</div>
+        <div class="key" onclick="sendKey('F5')">F5</div>
+        <div class="key" onclick="sendKey('F6')">F6</div>
+        <div class="key" onclick="sendKey('F7')">F7</div>
+        <div class="key" onclick="sendKey('F8')">F8</div>
+        <div class="key" onclick="sendKey('F9')">F9</div>
+        <div class="key" onclick="sendKey('F10')">F10</div>
+        <div class="key" onclick="sendKey('F11')">F11</div>
+        <div class="key" onclick="sendKey('F12')">F12</div>
+        <div class="key" onclick="sendKey('PrintScreen')">Print Scrn</div>
+        <div class="key" onclick="sendKey('ScrollLock')">Scroll Lock</div>
+        <div class="key" onclick="sendKey('Pause')">Pause</div>
+        <div class="key" onclick="sendKey('Backquote')">`</div>
+        <div class="key" onclick="sendKey('Digit1')">1</div>
+        <div class="key" onclick="sendKey('Digit2')">2</div>
+        <div class="key" onclick="sendKey('Digit3')">3</div>
+        <div class="key" onclick="sendKey('Digit4')">4</div>
+        <div class="key" onclick="sendKey('Digit5')">5</div>
+        <div class="key" onclick="sendKey('Digit6')">6</div>
+        <div class="key" onclick="sendKey('Digit7')">7</div>
+        <div class="key" onclick="sendKey('Digit8')">8</div>
+        <div class="key" onclick="sendKey('Digit9')">9</div>
+        <div class="key" onclick="sendKey('Digit0')">0</div>
+        <div class="key" onclick="sendKey('Minus')">-</div>
+        <div class="key" onclick="sendKey('Equal')">=</div>
+        <div class="key" onclick="sendKey('Backspace')">Backspace</div>
+        <div class="key" onclick="sendKey('Insert')">Insert</div>
+        <div class="key" onclick="sendKey('Home')">Home</div>
+        <div class="key" onclick="sendKey('PageUp')">Page Up</div>
+        <div class="key" onclick="sendKey('Tab')">Tab</div>
+        <div class="key" onclick="sendKey('KeyQ')">Q</div>
+        <div class="key" onclick="sendKey('KeyW')">W</div>
+        <div class="key" onclick="sendKey('KeyE')">E</div>
+        <div class="key" onclick="sendKey('KeyR')">R</div>
+        <div class="key" onclick="sendKey('KeyT')">T</div>
+        <div class="key" onclick="sendKey('KeyY')">Y</div>
+        <div class="key" onclick="sendKey('KeyU')">U</div>
+        <div class="key" onclick="sendKey('KeyI')">I</div>
+        <div class="key" onclick="sendKey('KeyO')">O</div>
+        <div class="key" onclick="sendKey('KeyP')">P</div>
+        <div class="key" onclick="sendKey('BracketLeft')">[</div>
+        <div class="key" onclick="sendKey('BracketRight')">]</div>
+        <div class="key" onclick="sendKey('Backslash')">\\</div>
+        <div class="key" onclick="sendKey('Delete')">Delete</div>
+        <div class="key" onclick="sendKey('End')">End</div>
+        <div class="key" onclick="sendKey('PageDown')">Page Down</div>
+        <div class="key" onclick="sendKey('CapsLock')">Caps Lock</div>
+        <div class="key" onclick="sendKey('KeyA')">A</div>
+        <div class="key" onclick="sendKey('KeyS')">S</div>
+        <div class="key" onclick="sendKey('KeyD')">D</div>
+        <div class="key" onclick="sendKey('KeyF')">F</div>
+        <div class="key" onclick="sendKey('KeyG')">G</div>
+        <div class="key" onclick="sendKey('KeyH')">H</div>
+        <div class="key" onclick="sendKey('KeyJ')">J</div>
+        <div class="key" onclick="sendKey('KeyK')">K</div>
+        <div class="key" onclick="sendKey('KeyL')">L</div>
+        <div class="key" onclick="sendKey('Semicolon')">;</div>
+        <div class="key" onclick="sendKey('Quote')">\'</div>
+        <div class="key" onclick="sendKey('Enter')">Enter</div>
+        <div class="key" onclick="sendKey('ArrowUp')">↑</div>
+        <div class="key" onclick="sendKey('ShiftLeft')">Shift</div>
+        <div class="key" onclick="sendKey('KeyZ')">Z</div>
+        <div class="key" onclick="sendKey('KeyX')">X</div>
+        <div class="key" onclick="sendKey('KeyC')">C</div>
+        <div class="key" onclick="sendKey('KeyV')">V</div>
+        <div class="key" onclick="sendKey('KeyB')">B</div>
+        <div class="key" onclick="sendKey('KeyN')">N</div>
+        <div class="key" onclick="sendKey('KeyM')">M</div>
+        <div class="key" onclick="sendKey('Comma')">,</div>
+        <div class="key" onclick="sendKey('Period')">.</div>
+        <div class="key" onclick="sendKey('Slash')">/</div>
+        <div class="key" onclick="sendKey('ArrowLeft')">←</div>
+        <div class="key" onclick="sendKey('ArrowDown')">↓</div>
+        <div class="key" onclick="sendKey('ArrowRight')">→</div>
+        <div class="key" onclick="sendKey('ShiftRight')">Shift</div>
+        <div class="key" onclick="sendKey('ControlLeft')">Ctrl</div>
+        <div class="key" onclick="sendKey('MetaLeft')">Win</div>
+        <div class="key" onclick="sendKey('AltLeft')">Alt</div>
+        <div class="key" onclick="sendKey('Space')">Space</div>
+        <div class="key" onclick="sendKey('AltRight')">Alt</div>
+        <div class="key" onclick="sendKey('ControlRight')">Ctrl</div>
+    </div>
+    <script>
+        function sendKey(key) {
+            var data = {
+                key: key,
+                action: 'press' // 'press' for key press, 'release' for key release
+            };
+            
+            fetch('/keyboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

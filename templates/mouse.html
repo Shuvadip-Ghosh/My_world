@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackpad</title>
+    <style>
+        #trackpad {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            margin: 20px auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="trackpad"></div>
+    <button class="button" onclick="leftClick()">Left Click</button>
+    <button class="button" onclick="rightClick()">Right Click</button>
+    <script>
+        var trackpad = document.getElementById('trackpad');
+
+        trackpad.addEventListener('touchmove', function(event) {
+            event.preventDefault(); // Prevent scrolling
+            var touch = event.touches[0];
+            var posX = touch.pageX - trackpad.offsetLeft;
+            var posY = touch.pageY - trackpad.offsetTop;
+            
+            // Send touch event data to the server
+            sendData(posX, posY);
+        });
+
+        function sendData(x, y) {
+            var data = {
+                x: x,
+                y: y
+            };
+            
+            fetch('/move_cursor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function leftClick() {
+            fetch('/left_click', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function rightClick() {
+            fetch('/right_click', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

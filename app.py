@@ -1,12 +1,11 @@
-from flask import Flask, render_template, current_app, flash, request, redirect, send_file
+from flask import Flask, render_template, current_app, flash, request, redirect, send_file, jsonify
 from flask import session
 import os
 from werkzeug.utils import secure_filename
-from datetime import timedelta
 from mutagen import mp3
 from mutagen.mp3 import MP3
 import time
-import subprocess
+import pyautogui
 
 ALLOWED_EXTENSIONS = {
     # music
@@ -43,7 +42,8 @@ app = Flask(__name__)
 UPLOAD_FOLDER = r'{}/uploads'.format(os.getcwd())
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = '`k9F"P[<Lop_2@WnY40J'
-
+# Screen size (adjust according to your screen resolution)
+SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -91,6 +91,43 @@ def spotify():
         time_data.append(total_time)
         songs_name.append([song, total_time])
     return render_template("spotify.html", files=songs_name, song_name=songs, time_data=time_data)
+
+
+@app.route('/mouse')
+def mouse():
+    return render_template('mouse.html')
+
+@app.route('/move_cursor', methods=['POST'])
+def move_cursor():
+    data = request.json
+    # Process the touch event data and move the cursor
+    x = int(data['x'] * SCREEN_WIDTH / 300)  # Scale x-coordinate to screen width
+    y = int(data['y'] * SCREEN_HEIGHT / 300)  # Scale y-coordinate to screen height
+    pyautogui.moveTo(x, y)
+    return jsonify({'status': 'success'})
+
+@app.route('/left_click', methods=['POST'])
+def left_click():
+    pyautogui.click()
+    return jsonify({'status': 'success'})
+
+@app.route('/right_click', methods=['POST'])
+def right_click():
+    pyautogui.click(button='right')
+    return jsonify({'status': 'success'})
+
+@app.route('/keyboard', methods=['GET','POST'])
+def keyboard_event():
+    if request.method == 'POST':
+        # data = request.json
+        # key = data['key']
+        # action = data['action']
+        # if action == 'press':
+        #     KeyboardController.press(eval('Key.' + key))
+        # elif action == 'release':
+        #     KeyboardController.release(eval('Key.' + key))
+        return jsonify({'status': 'success'})   
+    return render_template('keyboard.html')
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8000)
