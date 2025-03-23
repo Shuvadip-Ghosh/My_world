@@ -17,10 +17,10 @@ A **two-in-one web application** featuring a **browser-based music player** and 
 ## 🖼️ Screenshots  
 
 **🎵 Music Player**  
-![Music Player UI](https://github.com/Shuvadip-Ghosh/Oniyama/blob/master/Music_Player.png)  
+![Music Player UI](https://github.com/Shuvadip-Ghosh/Oniyama/blob/master/Music_Player.jpg)  
 
 **📁 Backup Drive**  
-![Backup Drive UI](https://github.com/Shuvadip-Ghosh/Oniyama/blob/master/Personal_Cloud.png)  
+![Backup Drive UI](https://github.com/Shuvadip-Ghosh/Oniyama/blob/master/Personal_Cloud.jpg)  
 
 ## 🔧 Installation  
 
